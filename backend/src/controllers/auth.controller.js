@@ -37,7 +37,6 @@ class AuthController {
     try {
       // Create a new user
       await User.create({
-        username,
         email,
         hashed_password,
         firstName,
