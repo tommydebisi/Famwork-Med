@@ -2,19 +2,6 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
 const UserSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-    minLength: [4, "username must be more than 4 characters"],
-    validate: {
-      validator: function (v) {
-        return /^\w[a-zA-Z0-9]+/.test(v);
-      },
-      message: (props) => {
-        return "shouldn't contain special character and spaces";
-      },
-    },
-  },
   email: {
     type: String,
     lowercase: true,
@@ -32,6 +19,29 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
+    type: String,
+    required: true,
+  },
+  gender: {
+    type: String,
+    required: true,
+  },
+  age: {
+    type: Number,
+    required: true,
+    min: 5,
+  },
+  status: {
+    type: String,
+    required: true,
+    default: 'Patient'
+  },
+
   createdAt: {
     type: Date,
     immutable: true,
@@ -43,4 +53,4 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model("User", UserSchema);

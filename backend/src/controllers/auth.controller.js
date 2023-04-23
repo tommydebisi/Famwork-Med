@@ -1,5 +1,5 @@
 const { compare } = require("bcrypt");
-const { v4 } = require('uuid');
+const { v4 } = require("uuid");
 const { Types } = require("mongoose");
 const dbClient = require("../utils/db");
 const redisClient = require("../utils/redis");
@@ -9,11 +9,17 @@ const { hashPassword } = require("../utils/helper");
 
 class AuthController {
   static async signUp(req, res) {
-    const { username, email, password } = req.body;
+    const { email, password, firstName, lastName, gender, age, status } =
+      req.body;
 
-    if (!username) return res.status(400).json({ message: "Missing username" });
-    if (!email) return res.status(400).json({ message: "Missing email" });
+    if (!email) return res.status(400).json({ message: "Missing password" });
     if (!password) return res.status(400).json({ message: "Missing password" });
+    if (!firstName)
+      return res.status(400).json({ message: "Missing firstName" });
+    if (!lastName) return res.status(400).json({ message: "Missing lastname" });
+    if (!gender) return res.status(400).json({ message: "Missing gender" });
+    if (!age) return res.status(400).json({ message: "Missing age" });
+    if (!status) return res.status(400).json({ message: "Missing status" });
 
     // validate email and password meets criteria
     try {
@@ -30,7 +36,16 @@ class AuthController {
     const hashed_password = await hashPassword(password);
     try {
       // Create a new user
-      await User.create({ username, email, hashed_password });
+      await User.create({
+        username,
+        email,
+        hashed_password,
+        firstName,
+        lastName,
+        gender,
+        status,
+        age,
+      });
 
       return res.status(201).json({ message: "success" });
     } catch (error) {
