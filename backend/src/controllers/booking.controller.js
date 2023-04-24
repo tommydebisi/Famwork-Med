@@ -1,5 +1,7 @@
 const { Types } = require("mongoose");
 const dbClient = require("../utils/db");
+const User = require("../models/user");
+const Booking = require("../models/booking");
 
 class BookingController {
   static async bookAppointment(req, res) {
@@ -38,6 +40,55 @@ class BookingController {
         time,
       });
       return res.status(201).json({ message: "Booking successful" });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  }
+
+  static async getBookings(req, res) {
+    const { userId } = req;
+    const { status } = req.query;
+
+    if (!status) return res.status(400).json({ message: "Missing status" });
+
+    // check if user exists
+    const user = await dbClient.getSchemaOne(User, {
+      _id: Types.ObjectId(userId),
+    });
+    if (!user) return res.status(400).json({ message: "User not found" });
+
+    // get bookings
+    try {
+      const bookings = await dbClient.getSchemaMany(Booking, {
+        patientId: Types.ObjectId(userId),
+        status,
+      });
+      return res.status(200).json({ firstName: user.firstName, bookings });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  }
+
+  static async cancelBooking(req, res) {
+    const { bookingId } = req.params;
+    const { userId } = req;
+
+    // check if booking exists
+    const booking = await dbClient.getSchemaOne(Booking, {
+      _id: Types.ObjectId(bookingId),
+    });
+    if (!booking) return res.status(400).json({ message: "Booking not found" });
+
+    // check if booking belongs to user
+    if (booking.patientId.toString() !== userId)
+      return res.status(400).json({ message: "Booking not found" });
+
+    // delete booking
+    try {
+      await dbClient.deleteSchemaOne(Booking, {
+        _id: Types.ObjectId(bookingId),
+      });
+      return res.status(200).json({ message: "Booking deleted" });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
