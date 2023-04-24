@@ -20,6 +20,17 @@ class DBClient {
   async getSchemaOne(schema, obj) {
     return schema.findOne(obj);
   }
+
+  /**
+   * gets all document that matches the given attribute name
+   * @param {mongoose.Schema} schema - db schema to query
+   * @param {object} attribute - attribute to search
+   * @param {object} fields - explicit contents of the document
+   * @returns object in db if present else null
+   */
+  async filterSchemaByAttribute(schema, attribute, fields) {
+    return schema.find(attribute, fields);
+  }
 }
 const dbClient = new DBClient();
 module.exports = dbClient;
