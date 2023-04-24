@@ -1,9 +1,11 @@
 const dbClient = require("../utils/db");
+const User = require("../models/user");
 const { Types } = require("mongoose");
 
 class UserController {
   static async getDoctors(req, res) {
     const doctors = dbClient.filterSchemaByAttribute(
+      User,
       {status: "Doctor"},
       {name: 1, experience: 1}
     );
