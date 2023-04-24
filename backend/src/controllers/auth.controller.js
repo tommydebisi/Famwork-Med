@@ -9,8 +9,17 @@ const { hashPassword } = require("../utils/helper");
 
 class AuthController {
   static async signUp(req, res) {
-    const { email, password, firstName, lastName, gender, age, status } =
-      req.body;
+    const {
+      email,
+      password,
+      firstName,
+      lastName,
+      gender,
+      age,
+      status,
+      specialization,
+      experience,
+    } = req.body;
 
     if (!email) return res.status(400).json({ message: "Missing password" });
     if (!password) return res.status(400).json({ message: "Missing password" });
@@ -20,6 +29,13 @@ class AuthController {
     if (!gender) return res.status(400).json({ message: "Missing gender" });
     if (!age) return res.status(400).json({ message: "Missing age" });
     if (!status) return res.status(400).json({ message: "Missing status" });
+
+    if (status.toLowerCase() === "doctor") {
+      if (!specialization)
+        return res.status(400).json({ message: "Missing specialization" });
+      if (!experience)
+        return res.status(400).json({ message: "Missing experience" });
+    }
 
     // validate email and password meets criteria
     try {
@@ -36,7 +52,7 @@ class AuthController {
     const hashed_password = await hashPassword(password);
     try {
       // Create a new user
-      await User.create({
+      const existingUser = await User.create({
         email,
         hashed_password,
         firstName,
@@ -45,6 +61,13 @@ class AuthController {
         status,
         age,
       });
+
+      // add doctor details if user is a doctor
+      if (status.toLowerCase() === "doctor") {
+        existingUser.specialization = specialization;
+        existingUser.experience = experience;
+        await existingUser.save();
+      }
 
       return res.status(201).json({ message: "success" });
     } catch (error) {

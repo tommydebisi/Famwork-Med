@@ -41,7 +41,14 @@ const UserSchema = new mongoose.Schema({
     required: true,
     default: 'Patient'
   },
-
+  specialization: {
+    type: String,
+    required: false,
+  },
+  experience: {
+    type: Number,
+    required: false,
+  },
   createdAt: {
     type: Date,
     immutable: true,
