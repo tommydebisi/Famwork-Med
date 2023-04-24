@@ -22,6 +22,17 @@ class DBClient {
   }
 
   /**
+   * gets all document that matches the given attribute name
+   * @param {mongoose.Schema} schema - db schema to query
+   * @param {object} attribute - attribute to search
+   * @param {object} fields - explicit contents of the document
+   * @returns object in db if present else null
+   */
+  async filterSchemaByAttribute(schema, attribute, fields) {
+    return schema.find(attribute, fields);
+   }
+   
+   /**
    * gets many rows in the db that match the object passed
    * @param {mongoose.Schema} schema - db schema to query
    * @param {object} obj - obj to search for in db
