@@ -14,7 +14,7 @@ class BookingController {
 
     // check if doctor exists
     const doctor = await dbClient.getSchemaOne(User, {
-      _id: Types.ObjectId(doctorId),
+      _id: new Types.ObjectId(doctorId),
     });
     if (!doctor) return res.status(400).json({ message: "Doctor not found" });
 
@@ -24,7 +24,7 @@ class BookingController {
 
     // check if doctor is available
     const existingBooking = await dbClient.getSchemaOne(Booking, {
-      doctorId: Types.ObjectId(doctorId),
+      doctorId: new Types.ObjectId(doctorId),
       date,
       time,
     });
@@ -34,8 +34,8 @@ class BookingController {
     // book appointment
     try {
       await Booking.create({
-        doctorId: Types.ObjectId(doctorId),
-        patientId: Types.ObjectId(userId),
+        doctorId: new Types.ObjectId(doctorId),
+        patientId: new Types.ObjectId(userId),
         date,
         time,
       });
@@ -53,14 +53,18 @@ class BookingController {
 
     // check if user exists
     const user = await dbClient.getSchemaOne(User, {
-      _id: Types.ObjectId(userId),
+      _id: new Types.ObjectId(userId),
     });
     if (!user) return res.status(400).json({ message: "User not found" });
+
+    if (user.status.toLowerCase() !== status.toLowerCase()) {
+      return res.status(400).json({ message: "Incorrect status" });
+    }
 
     // get bookings
     try {
       const bookings = await dbClient.getSchemaMany(Booking, {
-        patientId: Types.ObjectId(userId),
+        patientId: new Types.ObjectId(userId),
         status,
       });
       return res.status(200).json({ firstName: user.firstName, bookings });
@@ -75,7 +79,7 @@ class BookingController {
 
     // check if booking exists
     const booking = await dbClient.getSchemaOne(Booking, {
-      _id: Types.ObjectId(bookingId),
+      _id: new Types.ObjectId(bookingId),
     });
     if (!booking) return res.status(400).json({ message: "Booking not found" });
 
@@ -86,7 +90,7 @@ class BookingController {
     // delete booking
     try {
       await dbClient.deleteSchemaOne(Booking, {
-        _id: Types.ObjectId(bookingId),
+        _id: new Types.ObjectId(bookingId),
       });
       return res.status(200).json({ message: "Booking deleted" });
     } catch (error) {

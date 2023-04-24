@@ -7,7 +7,7 @@ class UserController {
     const doctors = dbClient.filterSchemaByAttribute(
       User,
       {status: "Doctor"},
-      {name: 1, experience: 1}
+      {firstName: 1, experience: 1}
     );
 
     if (!doctors) return res.status(400).json({ message: "Doctor not found" });

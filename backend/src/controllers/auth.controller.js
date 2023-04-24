@@ -21,7 +21,7 @@ class AuthController {
       experience,
     } = req.body;
 
-    if (!email) return res.status(400).json({ message: "Missing password" });
+    if (!email) return res.status(400).json({ message: "Missing email" });
     if (!password) return res.status(400).json({ message: "Missing password" });
     if (!firstName)
       return res.status(400).json({ message: "Missing firstName" });

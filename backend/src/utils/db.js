@@ -30,9 +30,9 @@ class DBClient {
    */
   async filterSchemaByAttribute(schema, attribute, fields) {
     return schema.find(attribute, fields);
-   }
-   
-   /**
+  }
+
+  /**
    * gets many rows in the db that match the object passed
    * @param {mongoose.Schema} schema - db schema to query
    * @param {object} obj - obj to search for in db
