@@ -1,0 +1,133 @@
+*{
+    font-family:sanserif;
+}
+
+.signup-container {
+    align-items: center;
+    /* margin-left: 15rem; */
+    width: 80vw;
+    display: grid;
+    /* gap: 25px; */
+    margin: 10px auto;
+    grid-template-areas: 
+      'form image'
+    ;
+    grid-template-columns: 1fr;
+    @media screen and (max-width: 800px) {
+        grid-template-areas: 
+        'form' 
+        'image'
+        ;
+        grid-template-columns: 1fr; 
+        padding-left: 0px;
+    }
+}
+
+.signup-container img {
+    grid-area: image;
+    max-width: 29vw;
+    justify-self: center;
+}
+
+.signup-container form {
+    grid-area: form;
+    margin: 10px auto;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 25rem; */
+}
+
+form h2 {
+    font-size: 1.7rem;
+}
+
+.radio-element {
+    display: flex; 
+    gap: 20px;  
+}
+
+.radio-element h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: rgb(116, 116, 116);
+}
+
+.element {
+    display: flex;
+}
+
+.select {
+    display: flex;
+    gap: 30px;
+}
+
+.detail input {
+    min-width: 27vw;
+    padding: 0.7rem;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid black;
+    @media screen and (max-width: 800px) {
+        min-width: 56vw;
+    }
+}
+
+.detail h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: rgb(116, 116, 116);
+}
+
+.terms {
+    display: flex;
+    gap: 5px;
+    margin-top: 1rem;
+}
+
+.terms h3 {
+    font-size: 1rem;
+}
+
+.button {
+    padding: 1.1em;
+    min-width: 29vw;
+    font-weight: 700;
+    border-radius: 10px;
+    border: none;
+    background-color: rgb(67, 67, 240);
+    color: white;
+    margin-top: 1.2rem;
+    @media screen and (max-width: 800px) {
+        min-width: 60vw;
+    }
+}
+
+.button:hover {
+    background-color: rgb(109, 109, 250);
+    cursor: pointer;
+}
+
+.btn {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    margin-left: -40px;
+    margin-top: 2px;
+}
+
+.icon-size {
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.password-field {
+    display: flex;
+    position: relative;
+}
+
+.signin {
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}

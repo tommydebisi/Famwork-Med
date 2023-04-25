@@ -1,0 +1,40 @@
+.sideContainer {
+    display: flex;
+    flex-direction: column;
+    padding-top: 75px;
+    @media screen and (max-width: 425px) {
+        gap: 20px;
+    }
+    @media screen and (max-width: 768px) and (min-width: 426px) {
+        gap: 20px;
+    }
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    padding-left: 25px;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.sidebar-item:hover {
+   background-color: rgb(84, 84, 214);
+   cursor: pointer;
+}
+
+.sidebar-item h4 {
+    color: #213F7D;
+    font-weight: 400;
+    @media screen and (max-width: 425px) {
+        display: none;
+    }
+    @media screen and (max-width: 768px) and (min-width: 426px) {
+        display: none;
+    }
+}
+
+.sidebar-icon {
+    color: #213F7D;
+}
+

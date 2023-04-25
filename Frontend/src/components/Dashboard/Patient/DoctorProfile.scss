@@ -1,0 +1,82 @@
+.docprofile-container {
+    display: grid;
+    height: 100vh;
+    grid-template-areas: 
+      'head head head' 
+      'sideBar users users'
+      'sideBar users users'
+    ;
+    grid-template-columns: 1fr 2fr 2fr;
+}
+
+.docprofile-header {
+    grid-area: head;
+}
+
+.docprofile-sidebar {
+    grid-area: sideBar;
+    overflow: auto;
+}
+
+.docprofile-detail {
+    grid-area: users;
+    overflow: auto;
+    // margin-bottom: 10rem;
+    // padding-top: 120px;
+    // padding-left: 60px;
+    background-color: rgb(248, 247, 247);
+    @media screen and (max-width: 425px) {
+        padding-left: 20px;
+    }
+    @media screen and (max-width: 768px) and (min-width: 426px) {
+        padding-left: 20px;
+    }
+    @media screen and (max-width: 1023px) and (min-width: 769px) {
+        padding-left: 20px;
+    }
+}
+
+.doctor-profile {
+    background-color: white;
+    border-radius: 20px;
+    width: 30vw;
+    padding: 2rem;
+    margin-left: 10rem;
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.upper img {
+    border-radius: 50%; 
+    width: 5vw;
+}
+
+.video-call {
+    cursor: pointer;
+}
+
+.video-call img {
+    border-radius: 50%; 
+    width: 5vw;
+}
+
+.major {
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+.upper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.doc-name {
+    font-weight: 600;
+}
+
+
